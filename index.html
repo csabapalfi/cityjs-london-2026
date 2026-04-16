@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<title>CityJS London 2026 — Day 3</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --fg: #0b1020;
+  --muted: #556072;
+  --line: #e6e8ef;
+  --card: #f7f8fb;
+  --card-hover: #eef0f6;
+  --pick: #fbbf24;
+  --pick-bg: #fff8e1;
+  --break: #94a3b8;
+  --now: #dc2626;
+  --shadow: 0 1px 2px rgba(0,0,0,.04), 0 2px 6px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1020;
+    --fg: #e7eaf3;
+    --muted: #94a3b8;
+    --line: #1e2436;
+    --card: #131a2e;
+    --card-hover: #1a2238;
+    --pick: #fbbf24;
+    --pick-bg: #3d2e08;
+    --break: #64748b;
+    --now: #ef4444;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.3);
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+a { color: inherit; }
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 14px calc(10px + env(safe-area-inset-top));
+  padding-top: calc(10px + env(safe-area-inset-top));
+}
+.title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.title h1 { font-size: 17px; margin: 0; font-weight: 600; }
+.title .date { font-size: 13px; color: var(--muted); }
+.subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.subtitle a { text-decoration: none; }
+
+.filters {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.filters::-webkit-scrollbar { display: none; }
+.chip {
+  flex: 0 0 auto;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--fg);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.chip.active {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+.chip .count {
+  font-size: 11px;
+  opacity: .7;
+}
+.chip .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  display: inline-block;
+}
+
+main { padding: 10px 14px 40px; }
+
+/* ===== Mobile: vertical timeline ===== */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+.time-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.time-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: .02em;
+  margin-top: 14px;
+  margin-bottom: 2px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--track-color, var(--line));
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 10px;
+  row-gap: 4px;
+  align-items: start;
+  cursor: pointer;
+  transition: background .12s;
+}
+.card:active { background: var(--card-hover); }
+.card.picked {
+  background: var(--pick-bg);
+  border-left-color: var(--pick);
+}
+.card .meta {
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.card .meta .track-pill {
+  padding: 1px 7px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--track-color);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.card .title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.card .speaker {
+  font-size: 13px;
+  color: var(--muted);
+}
+.card .tags {
+  margin-top: 4px;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.card .tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--line);
+  color: var(--muted);
+}
+.card .star {
+  font-size: 22px;
+  line-height: 1;
+  padding: 6px;
+  margin: -6px -4px -6px 0;
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card.picked .star { color: var(--pick); }
+.card.break {
+  opacity: .55;
+  border-left-color: var(--break);
+}
+.card.break .star { visibility: hidden; }
+
+.now-line {
+  position: absolute;
+  left: -4px; right: -4px;
+  border-top: 2px solid var(--now);
+  pointer-events: none;
+  z-index: 5;
+}
+.now-line::before {
+  content: "now";
+  position: absolute;
+  left: 0;
+  top: -10px;
+  background: var(--now);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ===== Desktop: 4-col grid ===== */
+@media (min-width: 900px) {
+  main { padding: 16px 24px 40px; max-width: 1400px; margin: 0 auto; }
+  .timeline.grid-mode {
+    display: grid;
+    grid-template-columns: 60px repeat(4, 1fr);
+    grid-auto-rows: 2px; /* 2px per minute; 25-min talk = 50px, 30-min = 60px */
+    gap: 0;
+    position: relative;
+    background: var(--bg);
+  }
+  .timeline.grid-mode .time-group,
+  .timeline.grid-mode .time-label { display: none; }
+  .grid-mode .grid-time {
+    grid-column: 1;
+    font-size: 11px;
+    color: var(--muted);
+    padding-right: 6px;
+    text-align: right;
+    border-top: 1px solid var(--line);
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .grid-mode .grid-header {
+    position: sticky;
+    top: 104px;
+    background: var(--bg);
+    z-index: 5;
+    grid-row: 1;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    padding: 6px 4px;
+    border-bottom: 2px solid var(--line);
+    color: var(--track-color);
+  }
+  .grid-mode .card {
+    margin: 0 2px;
+    border-radius: 6px;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .grid-mode .card .star { font-size: 18px; min-width: 32px; min-height: 32px; margin: 0; padding: 2px; }
+  .grid-mode .card .meta { display: none; }
+  .grid-mode .card .title { font-size: 13px; }
+  .grid-mode .card .speaker { font-size: 12px; }
+  .grid-mode .card .tags { display: none; }
+  .grid-mode .card-head { display: flex; justify-content: space-between; align-items: start; gap: 4px; }
+  .view-switch { display: inline-flex; }
+}
+@media (max-width: 899px) {
+  .view-switch { display: none; }
+  .grid-header, .grid-time { display: none !important; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="title">
+    <h1>CityJS London 2026 — Day 3</h1>
+    <span class="date">Fri 17 Apr</span>
+  </div>
+  <div class="subtitle">
+    Kensington Town Hall · <a href="https://maps.app.goo.gl/?q=Kensington+Town+Hall+London+W8+7NX" target="_blank">W8 7NX</a>
+  </div>
+  <div class="filters" id="filters"></div>
+</header>
+
+<main>
+  <div id="timeline" class="timeline"></div>
+</main>
+
+<script src="data.js"></script>
+<script>
+(() => {
+  const STORAGE_KEY = "cityjs-picks-v1";
+  const VIEW_KEY = "cityjs-view-v1";
+  const CONF_DATE = "2026-04-17";
+
+  function loadPicks() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return new Set(JSON.parse(raw));
+    // seed from data.js defaults
+    const seeded = new Set(TALKS.filter(t => t.pick).map(t => t.id));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...seeded]));
+    return seeded;
+  }
+  function savePicks(set) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
+  }
+
+  const picks = loadPicks();
+  let view = localStorage.getItem(VIEW_KEY) || "all"; // all | picks | t1 | t2 | t3 | t4
+
+  const filtersEl = document.getElementById("filters");
+  const timelineEl = document.getElementById("timeline");
+
+  function renderFilters() {
+    const pickCount = picks.size;
+    filtersEl.innerHTML = "";
+    const chips = [
+      { key: "all", label: "All", count: TALKS.filter(t => t.kind !== "break").length },
+      { key: "picks", label: "★ My Picks", count: pickCount },
+      ...Object.entries(TRACKS).map(([k, v]) => ({
+        key: "t" + k, label: v.name, color: v.color,
+        count: TALKS.filter(t => t.track == k && t.kind !== "break").length,
+      })),
+    ];
+    for (const c of chips) {
+      const b = document.createElement("button");
+      b.className = "chip" + (view === c.key ? " active" : "");
+      b.innerHTML = (c.color ? `<span class="dot" style="background:${c.color}"></span>` : "")
+        + c.label + ` <span class="count">${c.count}</span>`;
+      b.onclick = () => {
+        view = c.key;
+        localStorage.setItem(VIEW_KEY, view);
+        render();
+      };
+      filtersEl.appendChild(b);
+    }
+  }
+
+  function filterTalks() {
+    if (view === "all") return TALKS;
+    if (view === "picks") return TALKS.filter(t => picks.has(t.id));
+    const trackNum = Number(view.slice(1));
+    return TALKS.filter(t => t.track === trackNum);
+  }
+
+  function cardHtml(t) {
+    const trackInfo = TRACKS[t.track];
+    const isPicked = picks.has(t.id);
+    const isBreak = t.kind === "break";
+    const tagsHtml = t.tags?.length
+      ? `<div class="tags">${t.tags.map(x => `<span class="tag">${x}</span>`).join("")}</div>`
+      : "";
+    const speakerHtml = t.speaker
+      ? `<div class="speaker">${t.speaker}${t.org ? ` · <span style="opacity:.8">${t.org}</span>` : ""}</div>`
+      : "";
+    return `
+      <article class="card${isPicked ? " picked" : ""}${isBreak ? " break" : ""}"
+               data-id="${t.id}"
+               style="--track-color:${trackInfo.color}">
+        <div>
+          <div class="meta">
+            <span class="track-pill">${trackInfo.name}</span>
+            <span>${t.start}–${t.end}</span>
+          </div>
+          <div class="title">${t.title}</div>
+          ${speakerHtml}
+          ${tagsHtml}
+        </div>
+        <button class="star" aria-label="${isPicked ? "Unpick" : "Pick"}">${isPicked ? "★" : "☆"}</button>
+      </article>`;
+  }
+
+  function renderMobile() {
+    const talks = filterTalks().slice().sort((a, b) => a.start.localeCompare(b.start));
+    if (talks.length === 0) {
+      timelineEl.innerHTML = `<div class="empty">No talks match this view.</div>`;
+      return;
+    }
+    // group by start time
+    const groups = {};
+    for (const t of talks) {
+      (groups[t.start] ||= []).push(t);
+    }
+    timelineEl.innerHTML = Object.entries(groups).map(([time, ts]) => `
+      <div class="time-group">
+        <div class="time-label">${time}</div>
+        ${ts.map(cardHtml).join("")}
+      </div>
+    `).join("");
+    timelineEl.classList.remove("grid-mode");
+  }
+
+  function toMin(hhmm) { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; }
+
+  function renderDesktop() {
+    // desktop 4-col grid (all talks, not filtered by track so the grid stays full)
+    const talksAll = TALKS;
+    const dayStart = 8 * 60 + 30;
+    const dayEnd = 17 * 60 + 30;
+    const rows = dayEnd - dayStart + 1; // 1 row per minute, each row 8px tall -> 8px/min
+    let html = "";
+    // headers row
+    for (const [num, t] of Object.entries(TRACKS)) {
+      html += `<div class="grid-header" style="grid-column:${Number(num) + 1};--track-color:${t.color}">${t.name}<br><span style="font-weight:400;opacity:.7;font-size:10px">${t.location}</span></div>`;
+    }
+    // time ticks every 30 min
+    for (let m = dayStart; m <= dayEnd; m += 30) {
+      const row = m - dayStart + 2; // +2 because row 1 is header
+      const hh = String(Math.floor(m / 60)).padStart(2, "0");
+      const mm = String(m % 60).padStart(2, "0");
+      html += `<div class="grid-time" style="grid-row:${row}/span 30">${hh}:${mm}</div>`;
+    }
+    // talks
+    for (const t of talksAll) {
+      const startRow = toMin(t.start) - dayStart + 2;
+      const span = Math.max(toMin(t.end) - toMin(t.start), 15);
+      if (view === "picks" && !picks.has(t.id)) continue;
+      if (view.startsWith("t") && t.track !== Number(view.slice(1))) continue;
+      const trackInfo = TRACKS[t.track];
+      const isPicked = picks.has(t.id);
+      const isBreak = t.kind === "break";
+      const speakerHtml = t.speaker
+        ? `<div class="speaker">${t.speaker}</div>` : "";
+      html += `
+        <article class="card${isPicked ? " picked" : ""}${isBreak ? " break" : ""}"
+                 data-id="${t.id}"
+                 style="--track-color:${trackInfo.color};grid-column:${t.track + 1};grid-row:${startRow}/span ${span}">
+          <div class="card-head">
+            <div class="title">${t.title}</div>
+            <button class="star" aria-label="${isPicked ? "Unpick" : "Pick"}">${isPicked ? "★" : "☆"}</button>
+          </div>
+          ${speakerHtml}
+          <div class="speaker" style="margin-top:auto;font-size:10px;opacity:.7">${t.start}–${t.end}</div>
+        </article>`;
+    }
+    timelineEl.innerHTML = html;
+    timelineEl.classList.add("grid-mode");
+  }
+
+  function render() {
+    renderFilters();
+    if (window.matchMedia("(min-width:900px)").matches) {
+      renderDesktop();
+    } else {
+      renderMobile();
+    }
+    renderNowLine();
+  }
+
+  function renderNowLine() {
+    // Only on conference day; position line at current minute in mobile timeline
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
+    if (today !== CONF_DATE) return;
+    if (timelineEl.classList.contains("grid-mode")) return;
+    const nowMin = now.getHours() * 60 + now.getMinutes();
+    // find first card whose start >= now; insert line before its group
+    const groups = timelineEl.querySelectorAll(".time-group");
+    for (const g of groups) {
+      const label = g.querySelector(".time-label")?.textContent;
+      if (!label) continue;
+      if (toMin(label) >= nowMin) {
+        const line = document.createElement("div");
+        line.className = "now-line";
+        line.style.position = "relative";
+        line.style.margin = "8px 0 -8px";
+        g.parentNode.insertBefore(line, g);
+        line.scrollIntoView({ block: "center", behavior: "instant" });
+        return;
+      }
+    }
+  }
+
+  // click handlers (delegated)
+  timelineEl.addEventListener("click", (e) => {
+    const card = e.target.closest(".card");
+    if (!card) return;
+    const id = card.dataset.id;
+    const star = e.target.closest(".star");
+    if (!star) return; // only star toggles picks; tap elsewhere does nothing for now
+    if (picks.has(id)) picks.delete(id); else picks.add(id);
+    savePicks(picks);
+    render();
+  });
+
+  window.addEventListener("resize", () => {
+    // re-render on breakpoint change
+    const wasGrid = timelineEl.classList.contains("grid-mode");
+    const isGrid = window.matchMedia("(min-width:900px)").matches;
+    if (wasGrid !== isGrid) render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
