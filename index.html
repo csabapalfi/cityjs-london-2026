@@ -244,11 +244,15 @@ main { padding: 10px 14px 40px; }
   font-style: italic;
 }
 .card .caret {
-  font-size: 10px;
+  font-size: 9px;
   color: var(--muted);
-  margin-left: 4px;
+  margin-left: 6px;
+  display: inline-block;
+  transition: transform .15s ease;
+  transform-origin: center;
+  vertical-align: middle;
 }
-.card.expanded .caret { transform: rotate(180deg); display: inline-block; }
+.card.expanded .caret { transform: rotate(180deg); }
 
 .now-line {
   position: absolute;
@@ -483,7 +487,7 @@ main { padding: 10px 14px 40px; }
       : "";
     const conflictBadge = isConflict ? `<span class="conflict-badge">clash</span>` : "";
     const isExpanded = expanded.has(t.id);
-    const caret = hasDetails(t) ? `<span class="caret">${isExpanded ? "▲" : "▼"}</span>` : "";
+    const caret = hasDetails(t) ? `<span class="caret">▼</span>` : "";
     return `
       <article class="card${isPicked ? " picked" : ""}${isConflict ? " conflict" : ""}${isBreak ? " break" : ""}${isExpanded ? " expanded" : ""}"
                data-id="${t.id}"
