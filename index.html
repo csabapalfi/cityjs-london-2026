@@ -344,6 +344,8 @@ main { padding: 10px 14px 40px; }
   </div>
   <div class="subtitle">
     Kensington Town Hall · <a href="https://maps.app.goo.gl/?q=Kensington+Town+Hall+London+W8+7NX" target="_blank">W8 7NX</a>
+    · <a href="#" id="share-link">Share picks</a>
+    <span id="share-msg" style="display:none;margin-left:6px;color:var(--muted);font-size:11px"></span>
   </div>
   <div class="filters" id="filters"></div>
 </header>
@@ -375,6 +377,21 @@ main { padding: 10px 14px 40px; }
   const picks = loadPicks();
   const expanded = new Set(); // in-memory only — resets on reload
   let view = localStorage.getItem(VIEW_KEY) || "all"; // all | picks | t1 | t2 | t3 | t4
+
+  // Merge picks from ?picks=id1,id2,… on first load (replaces, doesn't union —
+  // user intent is "sync to what's on the other device")
+  const url = new URL(location.href);
+  const sharedPicks = url.searchParams.get("picks");
+  if (sharedPicks !== null) {
+    const validIds = new Set(TALKS.map(t => t.id));
+    picks.clear();
+    for (const id of sharedPicks.split(",").filter(Boolean)) {
+      if (validIds.has(id)) picks.add(id);
+    }
+    savePicks(picks);
+    url.searchParams.delete("picks");
+    history.replaceState({}, "", url.pathname + (url.search || "") + url.hash);
+  }
 
   function escapeHtml(s) {
     return (s || "").replace(/[&<>"']/g, c => ({
@@ -606,6 +623,34 @@ main { padding: 10px 14px 40px; }
     if (!talk || !hasDetails(talk)) return;
     if (expanded.has(id)) expanded.delete(id); else expanded.add(id);
     render();
+  });
+
+  // Share picks: Web Share API (iOS AirDrop), clipboard fallback
+  document.getElementById("share-link").addEventListener("click", async (e) => {
+    e.preventDefault();
+    const url = new URL(location.href);
+    url.searchParams.set("picks", [...picks].join(","));
+    const shareUrl = url.toString();
+    const msg = document.getElementById("share-msg");
+    const show = (txt) => {
+      msg.textContent = txt;
+      msg.style.display = "inline";
+      setTimeout(() => { msg.style.display = "none"; }, 2500);
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "CityJS picks", url: shareUrl });
+        return;
+      }
+    } catch (err) {
+      if (err.name === "AbortError") return; // user cancelled
+    }
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      show("link copied");
+    } catch {
+      prompt("Copy this URL:", shareUrl);
+    }
   });
 
   window.addEventListener("resize", () => {
