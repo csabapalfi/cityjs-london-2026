@@ -410,7 +410,9 @@ main { padding: 10px 14px 40px; }
     return `<div class="details">${desc}${bio}</div>`;
   }
   function hasDetails(t) {
-    return typeof DETAILS !== "undefined" && !!DETAILS[t.id];
+    if (typeof DETAILS === "undefined") return false;
+    const d = DETAILS[t.id];
+    return !!d && (!!d.desc?.trim() || !!d.bio?.trim());
   }
 
   function toMin(hhmm) { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; }
