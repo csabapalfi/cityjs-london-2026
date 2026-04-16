@@ -15,6 +15,8 @@
   --card-hover: #eef0f6;
   --pick: #fbbf24;
   --pick-bg: #fff8e1;
+  --conflict: #dc2626;
+  --conflict-bg: #fee2e2;
   --break: #94a3b8;
   --now: #dc2626;
   --shadow: 0 1px 2px rgba(0,0,0,.04), 0 2px 6px rgba(0,0,0,.04);
@@ -29,6 +31,8 @@
     --card-hover: #1a2238;
     --pick: #fbbf24;
     --pick-bg: #3d2e08;
+    --conflict: #ef4444;
+    --conflict-bg: #3a0f11;
     --break: #64748b;
     --now: #ef4444;
     --shadow: 0 1px 2px rgba(0,0,0,.4), 0 2px 6px rgba(0,0,0,.3);
@@ -141,6 +145,24 @@ main { padding: 10px 14px 40px; }
 .card.picked {
   background: var(--pick-bg);
   border-left-color: var(--pick);
+}
+.card.picked.conflict {
+  background: var(--conflict-bg);
+  border: 1px solid var(--conflict);
+  border-left: 4px solid var(--conflict);
+  box-shadow: 0 0 0 1px var(--conflict), var(--shadow);
+}
+.card.picked.conflict .star { color: var(--conflict); }
+.conflict-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--conflict);
+  color: #fff;
+  letter-spacing: .02em;
+  text-transform: uppercase;
 }
 .card .meta {
   font-size: 11px;
@@ -326,15 +348,41 @@ main { padding: 10px 14px 40px; }
   const picks = loadPicks();
   let view = localStorage.getItem(VIEW_KEY) || "all"; // all | picks | t1 | t2 | t3 | t4
 
+  function toMin(hhmm) { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; }
+
+  // Returns a Set of ids of picked talks that overlap with at least one other picked talk.
+  // Ignores breaks/meta — we only care about real sessions.
+  function computeConflicts() {
+    const out = new Set();
+    const picked = TALKS.filter(t => picks.has(t.id) && t.kind !== "break" && t.kind !== "meta");
+    for (let i = 0; i < picked.length; i++) {
+      for (let j = i + 1; j < picked.length; j++) {
+        const a = picked[i], b = picked[j];
+        if (a.track === b.track) continue; // same track can't really clash
+        const aS = toMin(a.start), aE = toMin(a.end);
+        const bS = toMin(b.start), bE = toMin(b.end);
+        if (aS < bE && bS < aE) {
+          out.add(a.id);
+          out.add(b.id);
+        }
+      }
+    }
+    return out;
+  }
+
   const filtersEl = document.getElementById("filters");
   const timelineEl = document.getElementById("timeline");
 
   function renderFilters() {
     const pickCount = picks.size;
+    const conflictCount = conflicts.size;
     filtersEl.innerHTML = "";
+    const picksLabel = conflictCount > 0
+      ? `★ My Picks <span class="conflict-badge" style="margin-left:4px">${conflictCount} clash</span>`
+      : "★ My Picks";
     const chips = [
       { key: "all", label: "All", count: TALKS.filter(t => t.kind !== "break").length },
-      { key: "picks", label: "★ My Picks", count: pickCount },
+      { key: "picks", label: picksLabel, count: pickCount },
       ...Object.entries(TRACKS).map(([k, v]) => ({
         key: "t" + k, label: v.name, color: v.color,
         count: TALKS.filter(t => t.track == k && t.kind !== "break").length,
@@ -364,6 +412,7 @@ main { padding: 10px 14px 40px; }
   function cardHtml(t) {
     const trackInfo = TRACKS[t.track];
     const isPicked = picks.has(t.id);
+    const isConflict = conflicts.has(t.id);
     const isBreak = t.kind === "break";
     const tagsHtml = t.tags?.length
       ? `<div class="tags">${t.tags.map(x => `<span class="tag">${x}</span>`).join("")}</div>`
@@ -371,14 +420,16 @@ main { padding: 10px 14px 40px; }
     const speakerHtml = t.speaker
       ? `<div class="speaker">${t.speaker}${t.org ? ` · <span style="opacity:.8">${t.org}</span>` : ""}</div>`
       : "";
+    const conflictBadge = isConflict ? `<span class="conflict-badge">clash</span>` : "";
     return `
-      <article class="card${isPicked ? " picked" : ""}${isBreak ? " break" : ""}"
+      <article class="card${isPicked ? " picked" : ""}${isConflict ? " conflict" : ""}${isBreak ? " break" : ""}"
                data-id="${t.id}"
                style="--track-color:${trackInfo.color}">
         <div>
           <div class="meta">
             <span class="track-pill">${trackInfo.name}</span>
             <span>${t.start}–${t.end}</span>
+            ${conflictBadge}
           </div>
           <div class="title">${t.title}</div>
           ${speakerHtml}
@@ -408,8 +459,6 @@ main { padding: 10px 14px 40px; }
     timelineEl.classList.remove("grid-mode");
   }
 
-  function toMin(hhmm) { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; }
-
   function renderDesktop() {
     // desktop 4-col grid (all talks, not filtered by track so the grid stays full)
     const talksAll = TALKS;
@@ -436,11 +485,13 @@ main { padding: 10px 14px 40px; }
       if (view.startsWith("t") && t.track !== Number(view.slice(1))) continue;
       const trackInfo = TRACKS[t.track];
       const isPicked = picks.has(t.id);
+      const isConflict = conflicts.has(t.id);
       const isBreak = t.kind === "break";
       const speakerHtml = t.speaker
         ? `<div class="speaker">${t.speaker}</div>` : "";
+      const conflictBadge = isConflict ? `<span class="conflict-badge">clash</span>` : "";
       html += `
-        <article class="card${isPicked ? " picked" : ""}${isBreak ? " break" : ""}"
+        <article class="card${isPicked ? " picked" : ""}${isConflict ? " conflict" : ""}${isBreak ? " break" : ""}"
                  data-id="${t.id}"
                  style="--track-color:${trackInfo.color};grid-column:${t.track + 1};grid-row:${startRow}/span ${span}">
           <div class="card-head">
@@ -448,14 +499,16 @@ main { padding: 10px 14px 40px; }
             <button class="star" aria-label="${isPicked ? "Unpick" : "Pick"}">${isPicked ? "★" : "☆"}</button>
           </div>
           ${speakerHtml}
-          <div class="speaker" style="margin-top:auto;font-size:10px;opacity:.7">${t.start}–${t.end}</div>
+          <div class="speaker" style="margin-top:auto;font-size:10px;opacity:.7">${t.start}–${t.end} ${conflictBadge}</div>
         </article>`;
     }
     timelineEl.innerHTML = html;
     timelineEl.classList.add("grid-mode");
   }
 
+  let conflicts = new Set();
   function render() {
+    conflicts = computeConflicts();
     renderFilters();
     if (window.matchMedia("(min-width:900px)").matches) {
       renderDesktop();
