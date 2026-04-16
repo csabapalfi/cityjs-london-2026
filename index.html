@@ -225,6 +225,31 @@ main { padding: 10px 14px 40px; }
 }
 .card.break .star { visibility: hidden; }
 
+.card .details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg);
+}
+.card.expanded .details { display: block; }
+.card .details p { margin: 0 0 8px; }
+.card .details p:last-child { margin-bottom: 0; }
+.card .details .bio {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+.card .caret {
+  font-size: 10px;
+  color: var(--muted);
+  margin-left: 4px;
+}
+.card.expanded .caret { transform: rotate(180deg); display: inline-block; }
+
 .now-line {
   position: absolute;
   left: -4px; right: -4px;
@@ -302,6 +327,7 @@ main { padding: 10px 14px 40px; }
   .grid-mode .card .speaker { font-size: 12px; }
   .grid-mode .card .tags { display: none; }
   .grid-mode .card-head { display: flex; justify-content: space-between; align-items: start; gap: 4px; }
+  .grid-mode .card .details, .grid-mode .card .caret { display: none !important; }
   .view-switch { display: inline-flex; }
 }
 @media (max-width: 899px) {
@@ -327,6 +353,7 @@ main { padding: 10px 14px 40px; }
 </main>
 
 <script src="data.js"></script>
+<script src="details.js"></script>
 <script>
 (() => {
   const STORAGE_KEY = "cityjs-picks-v1";
@@ -346,7 +373,24 @@ main { padding: 10px 14px 40px; }
   }
 
   const picks = loadPicks();
+  const expanded = new Set(); // in-memory only — resets on reload
   let view = localStorage.getItem(VIEW_KEY) || "all"; // all | picks | t1 | t2 | t3 | t4
+
+  function escapeHtml(s) {
+    return (s || "").replace(/[&<>"']/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+  }
+  function detailsHtml(t) {
+    const d = (typeof DETAILS !== "undefined") ? DETAILS[t.id] : null;
+    if (!d) return "";
+    const desc = d.desc ? `<p>${escapeHtml(d.desc)}</p>` : "";
+    const bio = d.bio ? `<p class="bio">${escapeHtml(d.bio)}</p>` : "";
+    return `<div class="details">${desc}${bio}</div>`;
+  }
+  function hasDetails(t) {
+    return typeof DETAILS !== "undefined" && !!DETAILS[t.id];
+  }
 
   function toMin(hhmm) { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; }
 
@@ -421,8 +465,10 @@ main { padding: 10px 14px 40px; }
       ? `<div class="speaker">${t.speaker}${t.org ? ` · <span style="opacity:.8">${t.org}</span>` : ""}</div>`
       : "";
     const conflictBadge = isConflict ? `<span class="conflict-badge">clash</span>` : "";
+    const isExpanded = expanded.has(t.id);
+    const caret = hasDetails(t) ? `<span class="caret">${isExpanded ? "▲" : "▼"}</span>` : "";
     return `
-      <article class="card${isPicked ? " picked" : ""}${isConflict ? " conflict" : ""}${isBreak ? " break" : ""}"
+      <article class="card${isPicked ? " picked" : ""}${isConflict ? " conflict" : ""}${isBreak ? " break" : ""}${isExpanded ? " expanded" : ""}"
                data-id="${t.id}"
                style="--track-color:${trackInfo.color}">
         <div>
@@ -431,11 +477,12 @@ main { padding: 10px 14px 40px; }
             <span>${t.start}–${t.end}</span>
             ${conflictBadge}
           </div>
-          <div class="title">${t.title}</div>
+          <div class="title">${t.title}${caret}</div>
           ${speakerHtml}
           ${tagsHtml}
         </div>
         <button class="star" aria-label="${isPicked ? "Unpick" : "Pick"}">${isPicked ? "★" : "☆"}</button>
+        ${detailsHtml(t)}
       </article>`;
   }
 
@@ -548,9 +595,16 @@ main { padding: 10px 14px 40px; }
     if (!card) return;
     const id = card.dataset.id;
     const star = e.target.closest(".star");
-    if (!star) return; // only star toggles picks; tap elsewhere does nothing for now
-    if (picks.has(id)) picks.delete(id); else picks.add(id);
-    savePicks(picks);
+    if (star) {
+      if (picks.has(id)) picks.delete(id); else picks.add(id);
+      savePicks(picks);
+      render();
+      return;
+    }
+    // tap on card body → toggle expansion (only if details exist)
+    const talk = TALKS.find(t => t.id === id);
+    if (!talk || !hasDetails(talk)) return;
+    if (expanded.has(id)) expanded.delete(id); else expanded.add(id);
     render();
   });
 
