@@ -491,7 +491,7 @@ main { padding: 10px 14px 40px; }
     filtersEl.innerHTML = "";
     const picksLabel = "★ My Picks";
     const picksSuffix = conflictCount > 0
-      ? ` <span class="clash-hint">· ${conflictCount} clash</span>`
+      ? ` <span class="clash-hint">· ${conflictCount} ${conflictCount === 1 ? "clash" : "clashes"}</span>`
       : "";
     const chips = [
       { key: "all", label: "All", count: TALKS.filter(t => t.kind !== "break").length },
@@ -626,7 +626,9 @@ main { padding: 10px 14px 40px; }
   }
 
   let conflicts = new Set();
+  let firstRender = true;
   function render() {
+    const scrollY = window.scrollY;
     conflicts = computeConflicts();
     renderFilters();
     if (window.matchMedia("(min-width:900px)").matches) {
@@ -634,10 +636,12 @@ main { padding: 10px 14px 40px; }
     } else {
       renderMobile();
     }
-    renderNowLine();
+    renderNowLine(firstRender);
+    if (!firstRender) window.scrollTo(0, scrollY);
+    firstRender = false;
   }
 
-  function renderNowLine() {
+  function renderNowLine(scrollToIt) {
     // Only on conference day; position line at current minute in mobile timeline
     const now = new Date();
     const today = now.toISOString().slice(0, 10);
@@ -655,7 +659,7 @@ main { padding: 10px 14px 40px; }
         line.style.position = "relative";
         line.style.margin = "8px 0 -8px";
         g.parentNode.insertBefore(line, g);
-        line.scrollIntoView({ block: "center", behavior: "instant" });
+        if (scrollToIt) line.scrollIntoView({ block: "center", behavior: "instant" });
         return;
       }
     }
