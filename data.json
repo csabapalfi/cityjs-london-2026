@@ -58,7 +58,6 @@
         "multimodal",
         "contejas"
       ],
-      "pick": true,
       "desc": "UX is changing with AI, where we go from clicking on boxes that are questionably accessible to just speaking things into existence. This talk will showcase how the role of JavaScript developers is changing in the AI age with practical steps and live demos."
     },
     {
@@ -73,7 +72,6 @@
         "AI-assisted dev",
         "future of frontend"
       ],
-      "pick": true,
       "desc": "Web development has always moved in cycles of hype, from frameworks to tooling. With the rise of large language models, we're entering a new era of 'vibe coding,' where developers shape software through collaboration with AI rather than syntax. This talk explores what that means for the future of coding, especially in frontend development, and how it echoes the past while redefining what comes next."
     },
     {
@@ -89,7 +87,6 @@
         "backend",
         "open source"
       ],
-      "pick": true,
       "desc": "Not long ago, starting a Node.js project meant installing lots of packages just to handle environment variables, run tests, or use TypeScript. Now, those days are behind us, and 2026 is the time to make the switch. Node.js is stronger than ever, but there’s still a big issue: many people keep using outdated versions with known security problems. We need to talk about the current LTS schedule and why you should be on Node 24. This session will cover both the roadmap and hands-on examples. You’ll see how much you can do with just Node.js and your chosen framework, often with far fewer extra packages. We’ll look at built-in TypeScript support that works right away, so you can write and run TypeScript without a build step. We’ll also cover testing with node:test and node:assert, built-in .env configuration, and native fetch powered by Undici for HTTP. Other topics include watch mode for development, node:sqlite for embedded databases, and the stable Permission System for better security. This is not only about making things easier, but it’s also about security. Each dependency you skip is one less risk. When you publish packages, OIDC-based publishing to npm ensures your releases are securely linked to their sources and can be verified. Here’s something important: Node.js isn’t owned by any company. It runs on open governance and volunteers. By the end of this session, you’ll know the 2025-2026 roadmap, understand the new built-in features, and see why community involvement matters for security and the future. Your package.json will shrink, and Node.js is more worth your attention than ever."
     },
     {
@@ -141,7 +138,6 @@
       "title": "The Other Local-First",
       "speaker": "Rich Harris",
       "org": "Vercel",
-      "pick": true,
       "desc": "The field of software engineering has changed dramatically in the last six months, whether you consented to it or not. But the new way of working has dangers that we're not taking seriously. In this talk, we'll explore how we can reframe our collective relationship with AI using the ideals of local-first development."
     },
     {
@@ -225,7 +221,6 @@
         "microfrontends",
         "frontend architecture"
       ],
-      "pick": true,
       "desc": "Micro-Frontends are the distributed architecture for the user interfaces that are solving not only technical but also organizational challenges. In this session, you will learn the most common anti-patterns I've seen in the past 10 years of implementing and consulting worldwide companies in their journey into the micro-frontends architecture. Whether you are an expert or a newbie, in this talk, you will learn how to properly structure your micro-frontends architecture and how to avoid common mistakes while building micro-frontends."
     },
     {
@@ -287,7 +282,6 @@
         "tooling",
         "sustainable software"
       ],
-      "pick": true,
       "desc": "Frontend tooling moves at breakneck speed, but the foundations of great web applications remain surprisingly constant. In this talk, Daniel explores how to architect projects that will thrive across technology shifts — from framework migrations to evolving hosting landscapes. Drawing from his work leading the Nuxt core team and collaborating with global developer communities, Daniel shares patterns, pitfalls, and practical strategies for building software that stays resilient, adaptable, and joyful to work on."
     },
     {
@@ -326,7 +320,6 @@
         "kubernetes",
         "performance"
       ],
-      "pick": true,
       "desc": "Here's something most Node.js developers don't realize: PM2's cluster module silently imposes a ~30% performance tax through hidden IPC coordination overhead. Every request pays this cost for master-worker communication, and most teams accept it as the price of scaling Node.js applications. With Watt, we eliminated this overhead using SO_REUSEPORT, achieving 93% faster median latency by letting the Linux kernel handle load distribution directly—no master processes, no IPC, zero coordination cost. In this talk, we'll walk through our production benchmarks on AWS EKS and show how Watt delivers not just raw performance, but also multithreaded SSR, distributed caching, full observability with Prometheus, and seamless horizontal scaling—all while dramatically reducing your infrastructure costs."
     },
     {
@@ -357,7 +350,6 @@
         "opentelemetry",
         "web performance"
       ],
-      "pick": true,
       "desc": "Observability is the ability to measure the current state of a system. SREs are familiar with OpenTelemetry signals and how they can be used to diagnose issues. Yet in the frontend world, we’re behind the curve. Join me as I dive into the current state of OpenTelemetry for Web. I’ll cover a simple example of logging, metrics and tracing using OTel web, specifically the Client Instrumentation libraries, and the types of metrics and traces we should collect to diagnose performance issues and client usage in UIs."
     },
     {
@@ -444,7 +436,6 @@
         "MCP",
         "agents"
       ],
-      "pick": true,
       "desc": "This talk will take you through how AI can improve your e-commerce website to increase conversion and customer joy. The talk will cover Agents and how MCP helps build reusable agents"
     },
     {
@@ -558,7 +549,6 @@
         "npm",
         "supply chain"
       ],
-      "pick": true,
       "desc": "With supply chain attacks increasingly targeting the developer's machine, we need to start looking into hardening that. Let's see how you can eliminate most risks form malicious NPM packages in your local dev environment with one setup of under 5 minutes."
     },
     {
@@ -614,7 +604,6 @@
         "AppSec",
         "secure dev"
       ],
-      "pick": true,
       "desc": "As AI starts writing, refactoring, and reviewing more of our code, security risks are evolving faster than ever. Imagine what happens when an LLM-generated snippet quietly introduces an injection flaw or when Copilot autocompletes a secret straight into your repo? This talk aims to show how we can keep AI-assisted development secure — not by slowing developers down, but by empowering them. With Semgrep, a lightweight and open-source static analysis tool built for developers, we will use semantic rules that catch vulnerabilities in JavaScript, TypeScript, and Node.js code before they hit production. This talk will be a mix of storytelling, live demos, and real-world lessons. We’ll use rules that detects an AI-generated security flaw, integrate Semgrep's CI/CD tool into GitHub Actions, and show how modern teams can automate their code review guardrails while keeping their developer flow intact. By the end of this talk, you’ll walk away with the confidence to bring AI security scanning straight into your CI/CD — no expensive tooling, no friction, just smart protection."
     },
     {
@@ -629,7 +618,6 @@
         "agentic AI",
         "microfrontends"
       ],
-      "pick": true,
       "desc": "Today’s interfaces often expose agents as simple chats or side panels, while real products are organized around clear domains and responsibilities. This session explores how to use A2UI to deliver complete agentic experiences as microfrontends, each aligned to a specific product context and owned by a dedicated team. Instead of sprinkling agent calls across many components, an agentic microfrontend becomes the primary interface for a given task space, with server-side agents describing UI updates via A2UI and the microfrontend rendering them using its own trusted design system."
     },
     {
@@ -653,7 +641,6 @@
         "AI-assisted dev",
         "builder mindset"
       ],
-      "pick": true,
       "desc": "I built a production app now used by contractors in a fraction of the time it would have taken me a year ago. Not because I wrote less code, but because I learned to orchestrate. We're in the middle of a fundamental shift: from writing every line of code to orchestrating AI agents that help us build. Paradoxically, this requires both stronger technical judgment and more product thinking - knowing what to build and why, not just how to implement it. Through a case study of building this product, I'll share three approaches to AI-assisted development, orchestration patterns for coordinating multiple AI agents and tools, and strategies for navigating challenges like the \"Hyperspecificity Paradox.\" You'll leave with a strategic framework for using AI across the full build cycle - ideation, discovery, architecture, implementation, deployment - and actionable patterns you can apply immediately. Why This Matters for CityJS Attendees: When everyone has access to AI intelligence, what becomes the differentiator? I argue it's agency, curiosity, product thinking, and the builder's mindset. Orchestration elevates developers from implementation details to strategic decisions about what should be built. This talk equips JavaScript developers with both the philosophy and practical patterns to thrive in this new paradigm."
     },
     {
@@ -669,7 +656,6 @@
         "tech debt",
         "styled-components"
       ],
-      "pick": true,
       "desc": "\"The decision to use styled-components was made before I joined the team\" is a line every JavaScript developer has heard, or said. We inherit choices from past engineers, and those choices carry a long-term cost. styled-components was officially deprecated in 2025, yet it still powers a huge chunk of production JavaScript apps. Replacing it - or any deprecated JS library - usually means months of migration work, endless PRs, and a mountain of tech debt that nobody really wants to touch. But what if AI could change that calculus entirely? Over the past year, we've been consistently been using AI to tackle tech debt that we previously couldn't on real, production JS applications. Instead of a six-month rewrite, we moved an entire design system - over 100 components built on styled-components - to a Tailwind in just a few days. But this isn't as simple as passing it all to Claude Code and hoping for the best. In order to keep consistency, we needed to create custom tooling to ensure that we don't end up with an unmaintainable mess. This talk is the story of how we pulled it off. We'll look at how we designed agentic workflows in JavaScript to automate the repetitive transformation work, where AI genuinely helped, and where it failed in ways we didn't expect. Whether your app is still sitting on styled-components, an outdated version of a UI framework, or any other legacy JS dependency, the patterns here are ones you can take home and apply."
     }
   ]
