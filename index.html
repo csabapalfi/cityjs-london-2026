@@ -6,6 +6,25 @@
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b1020" media="(prefers-color-scheme: dark)">
 <title>CityJS London 2026 — Day 3</title>
+<script>
+// SW kill switch — must run before registration. Triggered by ?nosw=1 in URL
+// or by flag cityjs-sw-killed in localStorage. Unregisters all SWs, nukes caches,
+// redirects to a clean URL. Safe from anywhere, even if the site is broken.
+(function() {
+  if (!("serviceWorker" in navigator)) return;
+  const forceKill = location.search.includes("nosw") || localStorage.getItem("cityjs-sw-killed") === "1";
+  if (!forceKill) return;
+  localStorage.setItem("cityjs-sw-killed", "1");
+  Promise.all([
+    navigator.serviceWorker.getRegistrations().then(rs => Promise.all(rs.map(r => r.unregister()))),
+    ("caches" in self) ? caches.keys().then(ks => Promise.all(ks.map(k => caches.delete(k)))) : null,
+  ]).then(() => {
+    // Strip ?nosw and reload clean — but keep the killed flag so any zombie SW stays dead
+    const u = new URL(location.href); u.searchParams.delete("nosw");
+    location.replace(u.pathname + (u.search || "") + u.hash);
+  });
+})();
+</script>
 <style>
 :root {
   color-scheme: light dark;
@@ -603,5 +622,15 @@ header > *, main { max-width: 640px; margin-left: auto; margin-right: auto; }
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9c2bfa92067146038865f76db15ec772"}'></script>
 <!-- End Cloudflare Web Analytics -->
+<script>
+// Service worker registration — offline-first with safety rails. See sw.js for design notes.
+// Skipped when kill switch is active. updateViaCache:"none" ensures the SW script itself
+// is never browser-cached, so a tombstone deploy propagates to every client.
+if ("serviceWorker" in navigator && localStorage.getItem("cityjs-sw-killed") !== "1") {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js", { scope: "./", updateViaCache: "none" }).catch(() => {});
+  });
+}
+</script>
 </body>
 </html>
