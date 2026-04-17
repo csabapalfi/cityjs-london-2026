@@ -61,8 +61,34 @@ header {
 .title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
 .title h1 { font-size: 17px; margin: 0; font-weight: 600; }
 .title .date { font-size: 13px; color: var(--muted); }
-.subtitle { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 .subtitle a { text-decoration: none; }
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bg);
+  background: var(--fg);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  min-height: 36px;
+  text-decoration: none;
+  font-family: inherit;
+}
+.share-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.share-msg { color: var(--muted); font-size: 12px; }
 
 .filters {
   display: flex;
@@ -204,7 +230,7 @@ main { padding: 10px 14px 40px; }
   color: var(--muted);
 }
 .card .star {
-  font-size: 22px;
+  font-size: 32px;
   line-height: 1;
   padding: 6px;
   margin: -6px -4px -6px 0;
@@ -212,8 +238,8 @@ main { padding: 10px 14px 40px; }
   border: 0;
   color: var(--muted);
   cursor: pointer;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: 52px;
+  min-height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -238,21 +264,29 @@ main { padding: 10px 14px 40px; }
 .card.expanded .details { display: block; }
 .card .details p { margin: 0 0 8px; }
 .card .details p:last-child { margin-bottom: 0; }
-.card .details .bio {
-  font-size: 12px;
-  color: var(--muted);
-  font-style: italic;
+.card .details-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  align-self: start;
 }
-.card .caret {
+.card .details-cta .caret {
   font-size: 9px;
-  color: var(--muted);
-  margin-left: 6px;
   display: inline-block;
   transition: transform .15s ease;
   transform-origin: center;
-  vertical-align: middle;
+  color: var(--muted);
 }
-.card.expanded .caret { transform: rotate(180deg); }
+.card.expanded .details-cta .caret { transform: rotate(180deg); }
 
 .now-line {
   position: absolute;
@@ -331,7 +365,8 @@ main { padding: 10px 14px 40px; }
   .grid-mode .card .speaker { font-size: 12px; }
   .grid-mode .card .tags { display: none; }
   .grid-mode .card-head { display: flex; justify-content: space-between; align-items: start; gap: 4px; }
-  .grid-mode .card .details, .grid-mode .card .caret { display: none !important; }
+  .grid-mode .card .details,
+  .grid-mode .card .details-cta { display: none !important; }
   .view-switch { display: inline-flex; }
 }
 @media (max-width: 899px) {
@@ -347,9 +382,14 @@ main { padding: 10px 14px 40px; }
     <span class="date">Fri 17 Apr</span>
   </div>
   <div class="subtitle">
-    Kensington Town Hall · <a href="https://maps.app.goo.gl/?q=Kensington+Town+Hall+London+W8+7NX" target="_blank">W8 7NX</a>
-    · <a href="#" id="share-link">Share picks</a>
-    <span id="share-msg" style="display:none;margin-left:6px;color:var(--muted);font-size:11px"></span>
+    <span>Kensington Town Hall · <a href="https://maps.app.goo.gl/?q=Kensington+Town+Hall+London+W8+7NX" target="_blank">W8 7NX</a></span>
+    <button type="button" class="share-btn" id="share-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v13"/><path d="m7 8 5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>
+      </svg>
+      Share picks
+    </button>
+    <span id="share-msg" class="share-msg" style="display:none"></span>
   </div>
   <div class="filters" id="filters"></div>
 </header>
@@ -404,15 +444,13 @@ main { padding: 10px 14px 40px; }
   }
   function detailsHtml(t) {
     const d = (typeof DETAILS !== "undefined") ? DETAILS[t.id] : null;
-    if (!d) return "";
-    const desc = d.desc ? `<p>${escapeHtml(d.desc)}</p>` : "";
-    const bio = d.bio ? `<p class="bio">${escapeHtml(d.bio)}</p>` : "";
-    return `<div class="details">${desc}${bio}</div>`;
+    if (!d || !d.desc?.trim()) return "";
+    return `<div class="details"><p>${escapeHtml(d.desc)}</p></div>`;
   }
   function hasDetails(t) {
     if (typeof DETAILS === "undefined") return false;
     const d = DETAILS[t.id];
-    return !!d && (!!d.desc?.trim() || !!d.bio?.trim());
+    return !!d && !!d.desc?.trim();
   }
 
   function toMin(hhmm) { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; }
@@ -489,7 +527,9 @@ main { padding: 10px 14px 40px; }
       : "";
     const conflictBadge = isConflict ? `<span class="conflict-badge">clash</span>` : "";
     const isExpanded = expanded.has(t.id);
-    const caret = hasDetails(t) ? `<span class="caret">▼</span>` : "";
+    const cta = hasDetails(t)
+      ? `<button class="details-cta" type="button">${isExpanded ? "Hide details" : "Show details"}<span class="caret">▼</span></button>`
+      : "";
     return `
       <article class="card${isPicked ? " picked" : ""}${isConflict ? " conflict" : ""}${isBreak ? " break" : ""}${isExpanded ? " expanded" : ""}"
                data-id="${t.id}"
@@ -500,9 +540,10 @@ main { padding: 10px 14px 40px; }
             <span>${t.start}–${t.end}</span>
             ${conflictBadge}
           </div>
-          <div class="title">${t.title}${caret}</div>
+          <div class="title">${t.title}</div>
           ${speakerHtml}
           ${tagsHtml}
+          ${cta}
         </div>
         <button class="star" aria-label="${isPicked ? "Unpick" : "Pick"}">${isPicked ? "★" : "☆"}</button>
         ${detailsHtml(t)}
