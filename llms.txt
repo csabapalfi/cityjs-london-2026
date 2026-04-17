@@ -1,0 +1,18 @@
+# CityJS London 2026 — Day 3 Picker
+
+> A static single-page picker for the CityJS London 2026 conference, Day 3 (Fri 17 Apr 2026, Kensington Town Hall). Lets attendees shortlist talks across 4 parallel tracks, see clashes, and share picks via URL.
+
+Mobile-first vertical timeline. No build, no backend. Picks persist in localStorage; `?picks=id1,id2,…` deep-links imported picks across devices (AirDrop / clipboard fallback via Web Share API). `?view=picks|t1|t2|t3|t4` filters the list.
+
+## Site
+- [Live site](https://csabapalfi.github.io/cityjs-london-2026/): the picker itself
+- [Source on GitHub](https://github.com/csabapalfi/cityjs-london-2026): single-file HTML + two JS modules
+
+## Data
+- [data.js](https://csabapalfi.github.io/cityjs-london-2026/data.js): `TRACKS` (4 rooms at Kensington Town Hall) and `TALKS` (sessions, breaks, times, speakers, default picks)
+- [details.js](https://csabapalfi.github.io/cityjs-london-2026/details.js): per-talk descriptions keyed by talk id
+
+## Conference
+- [CityJS London 2026](https://london.cityjsconf.org/): official site (client-rendered; scrape via headless browser if needed)
+- Venue: Kensington Town Hall, Hornton St, London W8 7NX
+- Tracks: Great Hall, Small Hall, Session Room 1, Session Room 2
