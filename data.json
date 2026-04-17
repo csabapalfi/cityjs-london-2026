@@ -632,7 +632,7 @@
       "id": "t4-1400",
       "track": 4,
       "start": "14:00",
-      "end": "15:20",
+      "end": "14:45",
       "title": "From Executor to Orchestrator: Building in the Age of AI Agents",
       "speaker": "Nkechi Anyanwu",
       "org": "Vouchsafe",
@@ -644,19 +644,18 @@
       "desc": "I built a production app now used by contractors in a fraction of the time it would have taken me a year ago. Not because I wrote less code, but because I learned to orchestrate. We're in the middle of a fundamental shift: from writing every line of code to orchestrating AI agents that help us build. Paradoxically, this requires both stronger technical judgment and more product thinking - knowing what to build and why, not just how to implement it. Through a case study of building this product, I'll share three approaches to AI-assisted development, orchestration patterns for coordinating multiple AI agents and tools, and strategies for navigating challenges like the \"Hyperspecificity Paradox.\" You'll leave with a strategic framework for using AI across the full build cycle - ideation, discovery, architecture, implementation, deployment - and actionable patterns you can apply immediately. Why This Matters for CityJS Attendees: When everyone has access to AI intelligence, what becomes the differentiator? I argue it's agency, curiosity, product thinking, and the builder's mindset. Orchestration elevates developers from implementation details to strategic decisions about what should be built. This talk equips JavaScript developers with both the philosophy and practical patterns to thrive in this new paradigm."
     },
     {
-      "id": "t4-1520",
+      "id": "t4-1445",
       "track": 4,
-      "start": "15:20",
-      "end": "16:00",
-      "title": "Six-Month Refactor in Six Days: Using AI to Update Deprecated JS Libraries",
-      "speaker": "Mo Khazali",
-      "org": "Associate Partner, AI Tooling @ Theodo",
+      "start": "14:45",
+      "end": "15:20",
+      "title": "My Best Practices Are a Button Now",
+      "speaker": "Justin McMurdie",
+      "org": "Adobe",
       "tags": [
-        "AI refactoring",
-        "tech debt",
-        "styled-components"
-      ],
-      "desc": "\"The decision to use styled-components was made before I joined the team\" is a line every JavaScript developer has heard, or said. We inherit choices from past engineers, and those choices carry a long-term cost. styled-components was officially deprecated in 2025, yet it still powers a huge chunk of production JavaScript apps. Replacing it - or any deprecated JS library - usually means months of migration work, endless PRs, and a mountain of tech debt that nobody really wants to touch. But what if AI could change that calculus entirely? Over the past year, we've been consistently been using AI to tackle tech debt that we previously couldn't on real, production JS applications. Instead of a six-month rewrite, we moved an entire design system - over 100 components built on styled-components - to a Tailwind in just a few days. But this isn't as simple as passing it all to Claude Code and hoping for the best. In order to keep consistency, we needed to create custom tooling to ensure that we don't end up with an unmaintainable mess. This talk is the story of how we pulled it off. We'll look at how we designed agentic workflows in JavaScript to automate the repetitive transformation work, where AI genuinely helped, and where it failed in ways we didn't expect. Whether your app is still sitting on styled-components, an outdated version of a UI framework, or any other legacy JS dependency, the patterns here are ones you can take home and apply."
+        "AI",
+        "rust",
+        "imposter"
+      ]
     }
   ]
 }

@@ -68,6 +68,6 @@ const TALKS = [
   { id: "t4-1125", track: 4, start: "11:25", end: "12:05", title: "Securing AI-Generated Code with Semgrep", speaker: "Paul Ibeabuchi", org: "Supabase", tags: ["AI-assisted dev","AppSec","secure dev"] },
   { id: "t4-1205", track: 4, start: "12:05", end: "13:00", title: "Embeddable Agentic SaaS with A2UI and Microfrontends", speaker: "Benjamin Bartosch (Funke Mediengruppe), Alexander Günsche (AWS)", tags: ["A2UI","agentic AI","microfrontends"] },
   { id: "t4-1300", track: 4, start: "13:00", end: "14:00", title: "Lunch", kind: "break" },
-  { id: "t4-1400", track: 4, start: "14:00", end: "15:20", title: "From Executor to Orchestrator: Building in the Age of AI Agents", speaker: "Nkechi Anyanwu", org: "Vouchsafe", tags: ["AI orchestration","AI-assisted dev","builder mindset"] },
-  { id: "t4-1520", track: 4, start: "15:20", end: "16:00", title: "Six-Month Refactor in Six Days: Using AI to Update Deprecated JS Libraries", speaker: "Mo Khazali", org: "Associate Partner, AI Tooling @ Theodo", tags: ["AI refactoring","tech debt","styled-components"] },
+  { id: "t4-1400", track: 4, start: "14:00", end: "14:45", title: "From Executor to Orchestrator: Building in the Age of AI Agents", speaker: "Nkechi Anyanwu", org: "Vouchsafe", tags: ["AI orchestration","AI-assisted dev","builder mindset"] },
+  { id: "t4-1445", track: 4, start: "14:45", end: "15:20", title: "My Best Practices Are a Button Now", speaker: "Justin McMurdie", org: "Adobe", tags: ["AI","rust","imposter"] },
 ];
