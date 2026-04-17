@@ -347,29 +347,53 @@ main { padding: 10px 14px 40px; }
   }
   .grid-mode .grid-header {
     position: sticky;
-    top: 104px;
+    top: 0;
     background: var(--bg);
     z-index: 5;
     grid-row: 1;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     text-align: center;
-    padding: 6px 4px;
+    padding: 10px 4px 8px;
     border-bottom: 2px solid var(--line);
     color: var(--track-color);
+    line-height: 1.2;
   }
   .grid-mode .card {
-    margin: 0 2px;
+    margin: 1px 3px;
     border-radius: 6px;
     padding: 6px 8px;
     display: flex;
     flex-direction: column;
     gap: 2px;
+    overflow: hidden;
   }
+  /* Tone down clash styling on desktop — subtle left edge + corner dot,
+     not a full red outline + shadow + badge like mobile */
+  .grid-mode .card.picked.conflict {
+    background: var(--pick-bg);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--conflict);
+    box-shadow: none;
+  }
+  .grid-mode .card.picked.conflict .conflict-badge { display: none; }
   .grid-mode .card .star { font-size: 18px; min-width: 32px; min-height: 32px; margin: 0; padding: 2px; }
   .grid-mode .card .meta { display: none; }
-  .grid-mode .card .title { font-size: 13px; }
-  .grid-mode .card .speaker { font-size: 12px; }
+  .grid-mode .card .title {
+    font-size: 13px;
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  .grid-mode .card .speaker {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .grid-mode .card .tags { display: none; }
   .grid-mode .card-head { display: flex; justify-content: space-between; align-items: start; gap: 4px; }
   .grid-mode .card .details,
@@ -596,8 +620,10 @@ main { padding: 10px 14px 40px; }
       const mm = String(m % 60).padStart(2, "0");
       html += `<div class="grid-time" style="grid-row:${row}/span 30">${hh}:${mm}</div>`;
     }
-    // talks
+    // talks — skip breaks entirely in grid mode (they span huge vertical chunks
+    // and add no info; time gutter shows the gaps already)
     for (const t of talksAll) {
+      if (t.kind === "break") continue;
       const startRow = toMin(t.start) - dayStart + 2;
       const span = Math.max(toMin(t.end) - toMin(t.start), 15);
       if (view === "picks" && !picks.has(t.id)) continue;
@@ -605,12 +631,10 @@ main { padding: 10px 14px 40px; }
       const trackInfo = TRACKS[t.track];
       const isPicked = picks.has(t.id);
       const isConflict = conflicts.has(t.id);
-      const isBreak = t.kind === "break";
       const speakerHtml = t.speaker
         ? `<div class="speaker">${t.speaker}</div>` : "";
-      const conflictBadge = isConflict ? `<span class="conflict-badge">clash</span>` : "";
       html += `
-        <article class="card${isPicked ? " picked" : ""}${isConflict ? " conflict" : ""}${isBreak ? " break" : ""}"
+        <article class="card${isPicked ? " picked" : ""}${isConflict ? " conflict" : ""}"
                  data-id="${t.id}"
                  style="--track-color:${trackInfo.color};grid-column:${t.track + 1};grid-row:${startRow}/span ${span}">
           <div class="card-head">
@@ -618,7 +642,7 @@ main { padding: 10px 14px 40px; }
             <button class="star" aria-label="${isPicked ? "Unpick" : "Pick"}">${isPicked ? "★" : "☆"}</button>
           </div>
           ${speakerHtml}
-          <div class="speaker" style="margin-top:auto;font-size:10px;opacity:.7">${t.start}–${t.end} ${conflictBadge}</div>
+          <div class="speaker" style="margin-top:auto;font-size:10px;opacity:.7">${t.start}–${t.end}</div>
         </article>`;
     }
     timelineEl.innerHTML = html;
