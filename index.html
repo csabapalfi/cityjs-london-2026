@@ -131,6 +131,13 @@ header {
   width: 8px; height: 8px; border-radius: 50%;
   display: inline-block;
 }
+.chip .clash-hint {
+  font-size: 11px;
+  color: var(--conflict);
+  margin-left: 2px;
+  font-weight: 500;
+}
+.chip.active .clash-hint { color: #fda4a4; }
 
 main { padding: 10px 14px 40px; }
 
@@ -482,12 +489,13 @@ main { padding: 10px 14px 40px; }
     const pickCount = picks.size;
     const conflictCount = conflicts.size;
     filtersEl.innerHTML = "";
-    const picksLabel = conflictCount > 0
-      ? `★ My Picks <span class="conflict-badge" style="margin-left:4px">${conflictCount} clash</span>`
-      : "★ My Picks";
+    const picksLabel = "★ My Picks";
+    const picksSuffix = conflictCount > 0
+      ? ` <span class="clash-hint">· ${conflictCount} clash</span>`
+      : "";
     const chips = [
       { key: "all", label: "All", count: TALKS.filter(t => t.kind !== "break").length },
-      { key: "picks", label: picksLabel, count: pickCount },
+      { key: "picks", label: picksLabel, count: pickCount, suffix: picksSuffix },
       ...Object.entries(TRACKS).map(([k, v]) => ({
         key: "t" + k, label: v.name, color: v.color,
         count: TALKS.filter(t => t.track == k && t.kind !== "break").length,
@@ -497,7 +505,7 @@ main { padding: 10px 14px 40px; }
       const b = document.createElement("button");
       b.className = "chip" + (view === c.key ? " active" : "");
       b.innerHTML = (c.color ? `<span class="dot" style="background:${c.color}"></span>` : "")
-        + c.label + ` <span class="count">${c.count}</span>`;
+        + c.label + ` <span class="count">${c.count}</span>` + (c.suffix || "");
       b.onclick = () => {
         view = c.key;
         localStorage.setItem(VIEW_KEY, view);
