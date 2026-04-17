@@ -1,0 +1,676 @@
+{
+  "conference": "CityJS London 2026",
+  "day": "Day 3",
+  "date": "2026-04-17",
+  "venue": "Kensington Town Hall, London W8 7NX",
+  "tracks": {
+    "1": {
+      "name": "Great Hall",
+      "location": "Ground Floor",
+      "color": "#4f46e5"
+    },
+    "2": {
+      "name": "Small Hall",
+      "location": "Level 1",
+      "color": "#059669"
+    },
+    "3": {
+      "name": "Session Room 1",
+      "location": "Level -1",
+      "color": "#d97706"
+    },
+    "4": {
+      "name": "Session Room 2",
+      "location": "Level -1",
+      "color": "#db2777"
+    }
+  },
+  "talks": [
+    {
+      "id": "t1-reg",
+      "track": 1,
+      "start": "08:30",
+      "end": "09:15",
+      "title": "Registration & Breakfast",
+      "kind": "break"
+    },
+    {
+      "id": "t1-open",
+      "track": 1,
+      "start": "09:15",
+      "end": "09:30",
+      "title": "Track 1 Opening",
+      "speaker": "Sara Vieira",
+      "org": "Senior Frontend Developer",
+      "kind": "meta",
+      "desc": "Royal Geographical Society, 1 Kensington Gore, South Kensington, London SW7 2AR Our MC for the main stage"
+    },
+    {
+      "id": "t1-0930",
+      "track": 1,
+      "start": "09:30",
+      "end": "10:00",
+      "title": "The New UX",
+      "speaker": "Tejas Kumar",
+      "org": "Director, Developer Relations @ IBM",
+      "tags": [
+        "AI-driven UX",
+        "multimodal",
+        "contejas"
+      ],
+      "pick": true,
+      "desc": "UX is changing with AI, where we go from clicking on boxes that are questionably accessible to just speaking things into existence. This talk will showcase how the role of JavaScript developers is changing in the AI age with practical steps and live demos."
+    },
+    {
+      "id": "t1-1000",
+      "track": 1,
+      "start": "10:00",
+      "end": "10:25",
+      "title": "From Vibe Coding to Vibe Engineering",
+      "speaker": "Kitze",
+      "org": "Sizzy",
+      "tags": [
+        "AI-assisted dev",
+        "future of frontend"
+      ],
+      "pick": true,
+      "desc": "Web development has always moved in cycles of hype, from frameworks to tooling. With the rise of large language models, we're entering a new era of 'vibe coding,' where developers shape software through collaboration with AI rather than syntax. This talk explores what that means for the future of coding, especially in frontend development, and how it echoes the past while redefining what comes next."
+    },
+    {
+      "id": "t1-1025",
+      "track": 1,
+      "start": "10:25",
+      "end": "10:55",
+      "title": "The New Node.js: Built-in Batteries and the Road Ahead",
+      "speaker": "Matteo Collina",
+      "org": "Platformatic · Node.js TSC",
+      "tags": [
+        "node.js",
+        "backend",
+        "open source"
+      ],
+      "pick": true,
+      "desc": "Not long ago, starting a Node.js project meant installing lots of packages just to handle environment variables, run tests, or use TypeScript. Now, those days are behind us, and 2026 is the time to make the switch. Node.js is stronger than ever, but there’s still a big issue: many people keep using outdated versions with known security problems. We need to talk about the current LTS schedule and why you should be on Node 24. This session will cover both the roadmap and hands-on examples. You’ll see how much you can do with just Node.js and your chosen framework, often with far fewer extra packages. We’ll look at built-in TypeScript support that works right away, so you can write and run TypeScript without a build step. We’ll also cover testing with node:test and node:assert, built-in .env configuration, and native fetch powered by Undici for HTTP. Other topics include watch mode for development, node:sqlite for embedded databases, and the stable Permission System for better security. This is not only about making things easier, but it’s also about security. Each dependency you skip is one less risk. When you publish packages, OIDC-based publishing to npm ensures your releases are securely linked to their sources and can be verified. Here’s something important: Node.js isn’t owned by any company. It runs on open governance and volunteers. By the end of this session, you’ll know the 2025-2026 roadmap, understand the new built-in features, and see why community involvement matters for security and the future. Your package.json will shrink, and Node.js is more worth your attention than ever."
+    },
+    {
+      "id": "t1-1055",
+      "track": 1,
+      "start": "10:55",
+      "end": "11:20",
+      "title": "Break",
+      "kind": "break"
+    },
+    {
+      "id": "t1-1120",
+      "track": 1,
+      "start": "11:20",
+      "end": "11:45",
+      "title": "Implementing Server Driven UI",
+      "speaker": "Dan Neciu",
+      "org": "Staff Engineer",
+      "desc": "What if your frontend didn’t need a deploy every time the product team wanted to rearrange a screen? Server-Driven UI lets the server send a declarative schema that the client renders at runtime — no redeploy needed. We’ll cover schema design, mapping responses to a component registry, handling actions declaratively, and the real tradeoffs around type safety and DX. You’ll leave knowing when this pattern is worth it and how to adopt it incrementally."
+    },
+    {
+      "id": "t1-1145",
+      "track": 1,
+      "start": "11:45",
+      "end": "12:05",
+      "title": "Pear — P2Pify all the apps",
+      "speaker": "David Mark Clements",
+      "org": "Tether",
+      "tags": [
+        "p2p",
+        "ota updates"
+      ],
+      "desc": "Use a module & a CLI to enable peer-to-peer deployments for any JS native application - such as an Electron or React Native app. Peer-to-peer over-the-air updates, production release flows with multisig for stakeholder sign-off, battle-tested in production with rapidly growing real-world apps with millions of new users per month. Open Source and free to use. No cloud, no fees, no outages."
+    },
+    {
+      "id": "t1-1205",
+      "track": 1,
+      "start": "12:05",
+      "end": "12:25",
+      "title": "Segmentation fault! Low-level debugging for JS developers",
+      "speaker": "Anna Henningsen",
+      "org": "Staff Engineer @ MongoDB"
+    },
+    {
+      "id": "t1-1225",
+      "track": 1,
+      "start": "12:25",
+      "end": "12:45",
+      "title": "The Other Local-First",
+      "speaker": "Rich Harris",
+      "org": "Vercel",
+      "pick": true,
+      "desc": "The field of software engineering has changed dramatically in the last six months, whether you consented to it or not. But the new way of working has dangers that we're not taking seriously. In this talk, we'll explore how we can reframe our collective relationship with AI using the ideals of local-first development."
+    },
+    {
+      "id": "t1-1245",
+      "track": 1,
+      "start": "12:45",
+      "end": "13:05",
+      "title": "Video Optimization for the Web: The Missing Piece in Lighthouse",
+      "speaker": "Harshit Budhraja",
+      "org": "ImageKit",
+      "tags": [
+        "video",
+        "web performance"
+      ],
+      "desc": "Video is everywhere on the web, from hero banners to product videos to full-blown streaming. However, while Lighthouse reports issues related to images, scripts, and more, it doesn't really address video performance. That means streaming can suffer for end users, resulting in buffering and slow starts, while businesses incur huge data transfer costs due to unoptimized delivery. In this talk, we'll explore some quick wins every developer should know: optimising video size and format, optimizing streaming for every device and network, and different video loading strategies to improve performance. You'll leave with a toolkit to make your videos load faster, play smoother, and feel as polished as the rest of your app, closing a significant gap that performance audits often overlook."
+    },
+    {
+      "id": "t1-1305",
+      "track": 1,
+      "start": "13:05",
+      "end": "14:00",
+      "title": "Lunch",
+      "kind": "break"
+    },
+    {
+      "id": "t1-1400",
+      "track": 1,
+      "start": "14:00",
+      "end": "14:20",
+      "title": "Code Golf — Getting A Hole-in-One-(Liner)",
+      "speaker": "Steven Goodwin",
+      "org": "Unemployable computer geek",
+      "desc": "We spend so long adopting well-worn patterns, and following accepted best practise, that we can forget about the fun that used to came from exploring the dark corners of our language. This talk covers some fundamentals of JavaScript and how they can be (ab)used to writer shorter and more compact code."
+    },
+    {
+      "id": "t1-1420",
+      "track": 1,
+      "start": "14:20",
+      "end": "14:55",
+      "title": "Women in Tech Panel",
+      "speaker": "Denise Lashlley, Robin Ginn, Jess Madhavan, Viktorija Buklajeva, Lena Lekkou, Julia Biro",
+      "kind": "panel",
+      "desc": "Join us for an inspiring Women in Tech Panel spotlighting trailblazing leaders who are shaping the future of innovation. From engineering and product to entrepreneurship and AI, our speakers will share candid stories about their career journeys, lessons learned, and the challenges they’ve overcome in the tech industry. Whether you're just starting out or looking to level up your career, this conversation will offer practical insights, empowering advice, and meaningful connections to help you thrive in tech."
+    },
+    {
+      "id": "t1-1455",
+      "track": 1,
+      "start": "14:55",
+      "end": "15:10",
+      "title": "Federation of Specialists: From Module Federation to AI Orchestration",
+      "speaker": "Nestor Lopez",
+      "org": "Zephyr Cloud",
+      "tags": [
+        "AI agents",
+        "composable AI"
+      ],
+      "desc": "The industry has already learned how to break frontend monoliths apart without breaking the product experience. A similar shift is now happening in AI. This talk traces the move from federated UI and composable runtime systems to a federation of AI specialists—and shows why production AI works better when agents have clear roles, controlled tools, workflow hooks, shared collaboration context, and policy boundaries."
+    },
+    {
+      "id": "t1-1510",
+      "track": 1,
+      "start": "15:10",
+      "end": "15:30",
+      "title": "Ripple: the Good Parts of React, Svelte, and Solid",
+      "speaker": "Erik Rasmussen",
+      "org": "Fuse Energy",
+      "tags": [
+        "frameworks"
+      ],
+      "desc": "Throughout history, empires rise and fall. Throughtout web development, frameworks rise and fall. In 2026, we are firmly in \"late stage React\", where young devs can't remember the world any other way, and older devs are keeping their eye on the horizon for what's next. What if I told you there was a TypeScript-first UI framework created by a member of both the React _and_ Svelte core teams focused on fine-grained reactivity and rendering speed that will look instantly familiar to you? I'd like to introduce you to Ripple, show you around its syntax and philosophy and stimulate your mind out of the Present and into the Future."
+    },
+    {
+      "id": "t1-1530",
+      "track": 1,
+      "start": "15:30",
+      "end": "15:50",
+      "title": "The Dark Side of Micro-Frontends",
+      "speaker": "Luca Mezzalira",
+      "org": "Software Architect @ AWS",
+      "tags": [
+        "microfrontends",
+        "frontend architecture"
+      ],
+      "pick": true,
+      "desc": "Micro-Frontends are the distributed architecture for the user interfaces that are solving not only technical but also organizational challenges. In this session, you will learn the most common anti-patterns I've seen in the past 10 years of implementing and consulting worldwide companies in their journey into the micro-frontends architecture. Whether you are an expert or a newbie, in this talk, you will learn how to properly structure your micro-frontends architecture and how to avoid common mistakes while building micro-frontends."
+    },
+    {
+      "id": "t1-1550",
+      "track": 1,
+      "start": "15:50",
+      "end": "16:00",
+      "title": "Break",
+      "kind": "break"
+    },
+    {
+      "id": "t1-1600",
+      "track": 1,
+      "start": "16:00",
+      "end": "16:45",
+      "title": "The Future of the AI Bubble (Panel)",
+      "speaker": "David Whitney (NewDay), David Benson",
+      "kind": "panel",
+      "desc": "In this panel we'll discuss the current state of generative AI, how systems built on top of it work, and what happens if the exceptionally resource intensive infrastructure underneath it fails. We'll cover the possible ramifications for our industry, the ethical dilemas and project out into the future around this controversial and category defining emerging programming technique."
+    },
+    {
+      "id": "t1-1645",
+      "track": 1,
+      "start": "16:45",
+      "end": "17:15",
+      "title": "JavaScript: The Best Part",
+      "speaker": "Douglas Crockford",
+      "org": "JSON creator",
+      "desc": "JavaScript's best part is higher-order functions. You will discover why this is the best way to program."
+    },
+    {
+      "id": "t2-bfst",
+      "track": 2,
+      "start": "08:30",
+      "end": "09:55",
+      "title": "Breakfast",
+      "kind": "break"
+    },
+    {
+      "id": "t2-open",
+      "track": 2,
+      "start": "09:55",
+      "end": "10:00",
+      "title": "Track 2 Opening",
+      "speaker": "Tony Edwards",
+      "org": "Sapphire Holidays",
+      "kind": "meta"
+    },
+    {
+      "id": "t2-1000",
+      "track": 2,
+      "start": "10:00",
+      "end": "10:25",
+      "title": "Beyond the Framework",
+      "speaker": "Daniel Roe",
+      "org": "Framework Lead @ Nuxt",
+      "tags": [
+        "web architecture",
+        "tooling",
+        "sustainable software"
+      ],
+      "pick": true,
+      "desc": "Frontend tooling moves at breakneck speed, but the foundations of great web applications remain surprisingly constant. In this talk, Daniel explores how to architect projects that will thrive across technology shifts — from framework migrations to evolving hosting landscapes. Drawing from his work leading the Nuxt core team and collaborating with global developer communities, Daniel shares patterns, pitfalls, and practical strategies for building software that stays resilient, adaptable, and joyful to work on."
+    },
+    {
+      "id": "t2-1025",
+      "track": 2,
+      "start": "10:25",
+      "end": "10:55",
+      "title": "React Beyond Components: The Rise of Generative UI",
+      "speaker": "Ruben Casas",
+      "org": "Staff Engineer @ Postman",
+      "tags": [
+        "react",
+        "generative UI",
+        "LLMs"
+      ],
+      "desc": "The component model made popular by React was the key to its success. By giving developers precise control over how interfaces are created, composed, and reused, React enabled an entire generation of high-quality user interfaces and thoughtful user experiences. Today, we’re at a similar inflection point… The rise of large language models has introduced a new way of interacting with machines. What began as text-based interfaces has steadily evolved into richer experiences, with UI components now being rendered and orchestrated by LLMs themselves. Yet most of these systems remain constrained by a familiar paradigm: invoking pre-made, static components. But let’s be honest, most LLMs are better at writing frontend code than me! This creates a great opportunity to rethink UI with React: moving beyond fixed component trees toward true generative UI In this talk, through concrete examples and live demos, we’ll explore how React fits into the emerging spectrum of generative UI, including: * Static React UI templates exposed through tools * Declarative, configuration-driven interfaces orchestrated by agents * Fully generative React interfaces authored on the fly by LLMs"
+    },
+    {
+      "id": "t2-1055",
+      "track": 2,
+      "start": "10:55",
+      "end": "11:20",
+      "title": "Break",
+      "kind": "break"
+    },
+    {
+      "id": "t2-1120",
+      "track": 2,
+      "start": "11:20",
+      "end": "11:45",
+      "title": "Achieving 93% Faster Next.js in (your) Kubernetes with Watt",
+      "speaker": "Paolo Insogna",
+      "org": "Platformatic",
+      "tags": [
+        "next.js",
+        "kubernetes",
+        "performance"
+      ],
+      "pick": true,
+      "desc": "Here's something most Node.js developers don't realize: PM2's cluster module silently imposes a ~30% performance tax through hidden IPC coordination overhead. Every request pays this cost for master-worker communication, and most teams accept it as the price of scaling Node.js applications. With Watt, we eliminated this overhead using SO_REUSEPORT, achieving 93% faster median latency by letting the Linux kernel handle load distribution directly—no master processes, no IPC, zero coordination cost. In this talk, we'll walk through our production benchmarks on AWS EKS and show how Watt delivers not just raw performance, but also multithreaded SSR, distributed caching, full observability with Prometheus, and seamless horizontal scaling—all while dramatically reducing your infrastructure costs."
+    },
+    {
+      "id": "t2-1145",
+      "track": 2,
+      "start": "11:45",
+      "end": "12:05",
+      "title": "A personal AI agent, off cloud, for $100",
+      "speaker": "Alvin Bryan",
+      "org": "Developer Advocate at Yoto",
+      "tags": [
+        "AI",
+        "privacy",
+        "webgpu"
+      ],
+      "desc": "Most of the talk around AI is about revolution, this is about taking an LLM off the big tech platform for simple daily improvements. I built a fully private digital butler that actually is personal. It exists on my computer, and stores only what I tell it to. It shares no data with the world, and helps me stay organised with useful, focused interactions.  I’ll show you how I made it, so you can build your own too. More importantly, I’ll help you think through a process of taking the scary acronyms of AI and LLMs into something **small, friendly, and genuinely helpful**. Something that stays **private and under your control**, and lets you own your data. Looking forward to sharing what I built, and hopefully inspiring you to do the same."
+    },
+    {
+      "id": "t2-1205",
+      "track": 2,
+      "start": "12:05",
+      "end": "12:25",
+      "title": "OTel You It's Not Just for Backend!",
+      "speaker": "Carly Richmond",
+      "org": "Senior DA @ Elastic",
+      "tags": [
+        "observability",
+        "opentelemetry",
+        "web performance"
+      ],
+      "pick": true,
+      "desc": "Observability is the ability to measure the current state of a system. SREs are familiar with OpenTelemetry signals and how they can be used to diagnose issues. Yet in the frontend world, we’re behind the curve. Join me as I dive into the current state of OpenTelemetry for Web. I’ll cover a simple example of logging, metrics and tracing using OTel web, specifically the Client Instrumentation libraries, and the types of metrics and traces we should collect to diagnose performance issues and client usage in UIs."
+    },
+    {
+      "id": "t2-1225",
+      "track": 2,
+      "start": "12:25",
+      "end": "12:45",
+      "title": "Replacing form libraries with native web APIs",
+      "speaker": "Trust Jamin Okpukoro",
+      "org": "Uploadcare · Developer Advocate",
+      "tags": [
+        "native web apis",
+        "html forms"
+      ],
+      "desc": "In 2026, shipping a heavy library like Formik or React Hook Form is often an unnecessary performance tax. This \"delete code\" session showcases how to use the Constraint Validation API, the Popover API, and native HTML Form Validation to build complex, accessible, and high-performance forms with zero external dependencies. We will compare the bundle size and TBT (Total Blocking Time) of a \"library-less\" form versus a traditional one, proving that \"doing less\" is the ultimate developer experience."
+    },
+    {
+      "id": "t2-1245",
+      "track": 2,
+      "start": "12:45",
+      "end": "13:05",
+      "title": "Look ma, no hands! Multimodal AI-Agents in the browser",
+      "speaker": "Nico Martin",
+      "org": "Hugging Face · ML Engineer",
+      "tags": [
+        "multimodal AI",
+        "browser AI"
+      ],
+      "desc": "In this talk, we’ll explore how to build multimodal AI agents that understand voice, interpret images, hold short-term memory, and respond intelligently - all running entirely in the browser. No server, no cloud APIs, and no installation. Using modern tools like WebGPU and WebAssembly, we’ll see how far the open web has come in enabling real-time, privacy-preserving AI experiences."
+    },
+    {
+      "id": "t2-1305",
+      "track": 2,
+      "start": "13:05",
+      "end": "14:00",
+      "title": "Lunch",
+      "kind": "break"
+    },
+    {
+      "id": "t2-1400",
+      "track": 2,
+      "start": "14:00",
+      "end": "14:25",
+      "title": "How to choose the right AI model for your project",
+      "speaker": "Ali Spivak",
+      "org": "Google",
+      "tags": [
+        "AI",
+        "generative AI",
+        "ML"
+      ],
+      "desc": "This presentation will detail a methodology to help you select the right Generative AI (GenAI) model by defining project needs and constraints first, assessing the available data, and finally, selecting the appropriate model type and processing location. Once you have narrowed down the model type, we'll cover how to actually evaluate the mode fit for your project needs."
+    },
+    {
+      "id": "t2-1425",
+      "track": 2,
+      "start": "14:25",
+      "end": "14:50",
+      "title": "Building Resilient UIs with React",
+      "speaker": "Faris Aziz",
+      "org": "Staff Software Engineer @ Smallpdf",
+      "desc": "Modern React applications are no longer just UI layers. They sit at the boundary of a distributed system, coordinating APIs, third-party services, feature flags, client-side caches, async rendering, and user-critical flows that can fail in several ways, some loud and others not so much. This talk looks at resilience from the frontend outward. Not in a “self-healing systems” sense, but in the practical sense of baking better guarantees into the way we design React applications, so they fail more predictably, recover more safely, and surface the right signals when things go wrong. Using real production lessons from Smallpdf, including a 35-day region-specific payment failure that went undetected while most metrics looked healthy, we’ll examine why frontend resilience is often less about preventing total outages and more about containing partial, conditional, and business-critical failures before they become expensive. We’ll explore how React architecture directly shapes recovery speed, debugging precision, and operational confidence, especially at scale. Along the way, we’ll cover the frontend as a distributed system boundary, why platform uptime does not equal successful user outcome, how to use component trees, Suspense boundaries, and error boundaries as failure-containment tools, and how feature flags can either improve safety or quietly multiply risk depending on how they are structured."
+    },
+    {
+      "id": "t2-1450",
+      "track": 2,
+      "start": "14:50",
+      "end": "15:25",
+      "title": "A Decade and Counting: React's Rhapsody of Life",
+      "speaker": "Matheus Albuquerque",
+      "org": "Medallia",
+      "desc": "React has been shaping how we build user interfaces for over a decade. But its journey hasn’t exactly been smooth. From early skepticism around JSX and “mixing HTML with JavaScript” to debates about hooks, concurrency, and RSC, React has sparked more controversy—and innovation—than almost any library in the web ecosystem. In this talk, we’ll revisit the past that led to React’s creation, explore the many “trouble in paradise” moments that challenged the community, and look at what’s coming next—from the React Compiler to new architectural ideas shaping the framework’s future. Along the way, we’ll uncover the deeper ideas behind React—composition, predictable data flow, and powerful abstractions—and reflect on what a decade of React can teach us about the evolution of software itself."
+    },
+    {
+      "id": "t2-1525",
+      "track": 2,
+      "start": "15:25",
+      "end": "15:45",
+      "title": "Improve your e-commerce with Agents and Model Context Protocol",
+      "speaker": "Chris Noring",
+      "org": "Microsoft",
+      "tags": [
+        "AI e-commerce",
+        "MCP",
+        "agents"
+      ],
+      "pick": true,
+      "desc": "This talk will take you through how AI can improve your e-commerce website to increase conversion and customer joy. The talk will cover Agents and how MCP helps build reusable agents"
+    },
+    {
+      "id": "t2-1545",
+      "track": 2,
+      "start": "15:45",
+      "end": "16:10",
+      "title": "JSBT: A Binary Serialization Format for Real JavaScript Object Graphs",
+      "speaker": "Alexander Cheprasov",
+      "org": "Senior SE · Valstro (UK)",
+      "tags": [
+        "javascript",
+        "performance",
+        "serialization"
+      ],
+      "desc": "Most serialization formats used in JavaScript were never designed for JavaScript. JSON can’t handle circular references or shared objects; Protobuf and Avro require schemas; MessagePack and CBOR still see data as a tree. In this talk, I will introduce JSBT – JavaScript Binary Transfer, a binary format designed specifically for JavaScript object graphs. It supports circular references, Maps, Sets, BigInts, TypedArrays, class instances and achieves huge size reductions (10,000 objects → 62 KB). A deep dive into how it works, why it exists, and how it can change the way JS services exchange data."
+    },
+    {
+      "id": "t2-1610",
+      "track": 2,
+      "start": "16:10",
+      "end": "16:30",
+      "title": "JS at the speed of Rust: Oxc",
+      "speaker": "Jim Dummett",
+      "org": "Void(0)",
+      "tags": [
+        "javascript",
+        "typescript",
+        "rust"
+      ],
+      "desc": "If you write JS or TS, it probably feels like every tool you use daily is being rewritten in Rust. This has advantages (have you heard that Rust is \"blazing fast\"?), but also potential downsides. The evolution of JS from the dark days before async/await was fuelled by tooling written in JS. If our tools migrate to a language we don't know, will we lose the ability to control or customize them? In this talk, I'll explain how Oxc is aiming to \"square the circle\" - providing rich customisation via plugins written in JS, but maintaining the exceptional performance of Rust - and take you into the nerdy details of memory layouts, allocators, garbage collection, and the tricks that make it possible to have our Rusty cake and eat it with a JS fork."
+    },
+    {
+      "id": "t3-bfst",
+      "track": 3,
+      "start": "08:30",
+      "end": "11:20",
+      "title": "Breakfast",
+      "kind": "break"
+    },
+    {
+      "id": "t3-open",
+      "track": 3,
+      "start": "11:20",
+      "end": "11:25",
+      "title": "Track 3 Opening",
+      "speaker": "Michael Hoffman",
+      "org": "Senior Developer",
+      "kind": "meta"
+    },
+    {
+      "id": "t3-1125",
+      "track": 3,
+      "start": "11:25",
+      "end": "12:05",
+      "title": "From Isolation to Acceleration: Building the fastest payment platform on an iFrame",
+      "speaker": "Eduardo Aparicio Cardenes",
+      "org": "Senior SE · Happening",
+      "tags": [
+        "performance",
+        "architecture",
+        "vue.js"
+      ],
+      "desc": "What started as a secure, isolated iFrame to ensure user confidence soon turned into a performance hurdle in key markets like Brazil, where load times hit double digits. In this talk, we’ll show you how we transformed that iFrame-based approach into a blazing-fast, data-driven payment platform. This isn’t another framework story; it’s an engineering one. We had to make bold decisions to transform that single-page approach into a fast, reliable, and scalable payment ecosystem. We'll dive into the technical journey and the data that drove our decisions, revealing how we achieved dramatic speed improvements without sacrificing reliability. Come see how we turned a slow lane into a fast track, all grounded in real-world performance data. Under the hood, we used Vue.js to make it happen, but the real takeaway is how data guided the architecture. This session unpacks what we built, what didn’t work, and the hard-earned lessons about performance that go beyond any single framework."
+    },
+    {
+      "id": "t3-1205",
+      "track": 3,
+      "start": "12:05",
+      "end": "13:00",
+      "title": "WebAssembly + JavaScript: Partners, Not Competitors",
+      "speaker": "Aprajita Verma",
+      "org": "Frontend Architect · Mycom",
+      "tags": [
+        "performance",
+        "wasm"
+      ]
+    },
+    {
+      "id": "t3-1300",
+      "track": 3,
+      "start": "13:00",
+      "end": "14:00",
+      "title": "Lunch",
+      "kind": "break"
+    },
+    {
+      "id": "t3-1400",
+      "track": 3,
+      "start": "14:00",
+      "end": "14:45",
+      "title": "Pigeon-Driven Development",
+      "speaker": "Scott Spence",
+      "org": "XtendOps",
+      "tags": [
+        "AI in practice",
+        "svelte"
+      ],
+      "desc": "I work with AI daily - building tools, refactoring codebases, shipping features. It's genuinely made me more productive. But somewhere along the way I learned that the real skill isn't prompting, it's evaluation. A 2023 University of Iowa study found that AI and pigeons use the same associative learning process - pattern matching, not reasoning. I'm not saying that to be dismissive. It's incredibly powerful. But it means you're working with a very fast pigeon, and you need to know when the patterns have gone wrong. And they will. This talk covers: Real examples of my pigeon going off track and how I caught them (including the time it moved 160 files to completely the wrong place) The verification habits I've built into my workflow Why \"trust but verify\" isn't enough - you need to know what to verify Building guardrails so you can move fast without breaking things No hand-wavy thought leadership. Just what I've learned from doing the work."
+    },
+    {
+      "id": "t3-1445",
+      "track": 3,
+      "start": "14:45",
+      "end": "15:20",
+      "title": "Effortlessly defend your dev machine from North Koreans on NPM",
+      "speaker": "Zbyszek Tenerowicz",
+      "org": "LavaMoat R&D Lead · Consensys",
+      "tags": [
+        "security",
+        "npm",
+        "supply chain"
+      ],
+      "pick": true,
+      "desc": "With supply chain attacks increasingly targeting the developer's machine, we need to start looking into hardening that. Let's see how you can eliminate most risks form malicious NPM packages in your local dev environment with one setup of under 5 minutes."
+    },
+    {
+      "id": "t3-1520",
+      "track": 3,
+      "start": "15:20",
+      "end": "15:50",
+      "title": "Off-the-main-thread: Building fast, smooth and future-proof web apps",
+      "speaker": "Ananya Kittane Yogananda",
+      "org": "Samsung R&D Institute UK",
+      "tags": [
+        "main thread",
+        "web performance"
+      ],
+      "desc": "Modern JavaScript apps demand more from the browser than ever. As rendering, scripting, layout, and user input all fight for time on the main thread, even well-built apps can suffer from slow interactions, jank and dropped frames. In this talk, we'll explore how to build fast, smooth web experiences by strategically moving work off the main thread."
+    },
+    {
+      "id": "t3-1550",
+      "track": 3,
+      "start": "15:50",
+      "end": "16:00",
+      "title": "Break",
+      "kind": "break"
+    },
+    {
+      "id": "t4-bfst",
+      "track": 4,
+      "start": "08:30",
+      "end": "11:20",
+      "title": "Breakfast",
+      "kind": "break"
+    },
+    {
+      "id": "t4-open",
+      "track": 4,
+      "start": "11:20",
+      "end": "11:25",
+      "title": "Track 4 Opening",
+      "speaker": "Praveen Kumar Purushothaman",
+      "org": "Full Stack / JavaScript",
+      "kind": "meta"
+    },
+    {
+      "id": "t4-1125",
+      "track": 4,
+      "start": "11:25",
+      "end": "12:05",
+      "title": "Securing AI-Generated Code with Semgrep",
+      "speaker": "Paul Ibeabuchi",
+      "org": "Supabase",
+      "tags": [
+        "AI-assisted dev",
+        "AppSec",
+        "secure dev"
+      ],
+      "pick": true,
+      "desc": "As AI starts writing, refactoring, and reviewing more of our code, security risks are evolving faster than ever. Imagine what happens when an LLM-generated snippet quietly introduces an injection flaw or when Copilot autocompletes a secret straight into your repo? This talk aims to show how we can keep AI-assisted development secure — not by slowing developers down, but by empowering them. With Semgrep, a lightweight and open-source static analysis tool built for developers, we will use semantic rules that catch vulnerabilities in JavaScript, TypeScript, and Node.js code before they hit production. This talk will be a mix of storytelling, live demos, and real-world lessons. We’ll use rules that detects an AI-generated security flaw, integrate Semgrep's CI/CD tool into GitHub Actions, and show how modern teams can automate their code review guardrails while keeping their developer flow intact. By the end of this talk, you’ll walk away with the confidence to bring AI security scanning straight into your CI/CD — no expensive tooling, no friction, just smart protection."
+    },
+    {
+      "id": "t4-1205",
+      "track": 4,
+      "start": "12:05",
+      "end": "13:00",
+      "title": "Embeddable Agentic SaaS with A2UI and Microfrontends",
+      "speaker": "Benjamin Bartosch (Funke Mediengruppe), Alexander Günsche (AWS)",
+      "tags": [
+        "A2UI",
+        "agentic AI",
+        "microfrontends"
+      ],
+      "pick": true,
+      "desc": "Today’s interfaces often expose agents as simple chats or side panels, while real products are organized around clear domains and responsibilities. This session explores how to use A2UI to deliver complete agentic experiences as microfrontends, each aligned to a specific product context and owned by a dedicated team. Instead of sprinkling agent calls across many components, an agentic microfrontend becomes the primary interface for a given task space, with server-side agents describing UI updates via A2UI and the microfrontend rendering them using its own trusted design system."
+    },
+    {
+      "id": "t4-1300",
+      "track": 4,
+      "start": "13:00",
+      "end": "14:00",
+      "title": "Lunch",
+      "kind": "break"
+    },
+    {
+      "id": "t4-1400",
+      "track": 4,
+      "start": "14:00",
+      "end": "15:20",
+      "title": "From Executor to Orchestrator: Building in the Age of AI Agents",
+      "speaker": "Nkechi Anyanwu",
+      "org": "Vouchsafe",
+      "tags": [
+        "AI orchestration",
+        "AI-assisted dev",
+        "builder mindset"
+      ],
+      "pick": true,
+      "desc": "I built a production app now used by contractors in a fraction of the time it would have taken me a year ago. Not because I wrote less code, but because I learned to orchestrate. We're in the middle of a fundamental shift: from writing every line of code to orchestrating AI agents that help us build. Paradoxically, this requires both stronger technical judgment and more product thinking - knowing what to build and why, not just how to implement it. Through a case study of building this product, I'll share three approaches to AI-assisted development, orchestration patterns for coordinating multiple AI agents and tools, and strategies for navigating challenges like the \"Hyperspecificity Paradox.\" You'll leave with a strategic framework for using AI across the full build cycle - ideation, discovery, architecture, implementation, deployment - and actionable patterns you can apply immediately. Why This Matters for CityJS Attendees: When everyone has access to AI intelligence, what becomes the differentiator? I argue it's agency, curiosity, product thinking, and the builder's mindset. Orchestration elevates developers from implementation details to strategic decisions about what should be built. This talk equips JavaScript developers with both the philosophy and practical patterns to thrive in this new paradigm."
+    },
+    {
+      "id": "t4-1520",
+      "track": 4,
+      "start": "15:20",
+      "end": "16:00",
+      "title": "Six-Month Refactor in Six Days: Using AI to Update Deprecated JS Libraries",
+      "speaker": "Mo Khazali",
+      "org": "Associate Partner, AI Tooling @ Theodo",
+      "tags": [
+        "AI refactoring",
+        "tech debt",
+        "styled-components"
+      ],
+      "pick": true,
+      "desc": "\"The decision to use styled-components was made before I joined the team\" is a line every JavaScript developer has heard, or said. We inherit choices from past engineers, and those choices carry a long-term cost. styled-components was officially deprecated in 2025, yet it still powers a huge chunk of production JavaScript apps. Replacing it - or any deprecated JS library - usually means months of migration work, endless PRs, and a mountain of tech debt that nobody really wants to touch. But what if AI could change that calculus entirely? Over the past year, we've been consistently been using AI to tackle tech debt that we previously couldn't on real, production JS applications. Instead of a six-month rewrite, we moved an entire design system - over 100 components built on styled-components - to a Tailwind in just a few days. But this isn't as simple as passing it all to Claude Code and hoping for the best. In order to keep consistency, we needed to create custom tooling to ensure that we don't end up with an unmaintainable mess. This talk is the story of how we pulled it off. We'll look at how we designed agentic workflows in JavaScript to automate the repetitive transformation work, where AI genuinely helped, and where it failed in ways we didn't expect. Whether your app is still sitting on styled-components, an outdated version of a UI framework, or any other legacy JS dependency, the patterns here are ones you can take home and apply."
+    }
+  ]
+}

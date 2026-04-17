@@ -8,9 +8,14 @@ Mobile-first vertical timeline. No build, no backend. Picks persist in localStor
 - [Live site](https://csabapalfi.github.io/cityjs-london-2026/): the picker itself
 - [Source on GitHub](https://github.com/csabapalfi/cityjs-london-2026): single-file HTML + two JS modules
 
-## Data
-- [data.js](https://csabapalfi.github.io/cityjs-london-2026/data.js): `TRACKS` (4 rooms at Kensington Town Hall) and `TALKS` (sessions, breaks, times, speakers, default picks)
-- [details.js](https://csabapalfi.github.io/cityjs-london-2026/details.js): per-talk descriptions keyed by talk id
+## Data (agent-friendly)
+- [data.json](https://csabapalfi.github.io/cityjs-london-2026/data.json): single JSON file — tracks + all talks with times, speakers, orgs, tags, descriptions merged in. Shape: `{ conference, day, date, venue, tracks: {1..4}, talks: [{id, track, start, end, title, speaker?, org?, tags?, desc?, kind?}] }`
+- [schedule.md](https://csabapalfi.github.io/cityjs-london-2026/schedule.md): same data as human-readable Markdown grouped by track
+
+## Source data files
+- [data.js](https://csabapalfi.github.io/cityjs-london-2026/data.js): source of truth — `TRACKS` + `TALKS` as JS literals (the site loads this directly)
+- [details.js](https://csabapalfi.github.io/cityjs-london-2026/details.js): per-talk descriptions keyed by id
+- [build-data.mjs](https://github.com/csabapalfi/cityjs-london-2026/blob/main/build-data.mjs): regenerates `data.json` + `schedule.md` from the two source files
 
 ## Conference
 - [CityJS London 2026](https://london.cityjsconf.org/): official site (client-rendered; scrape via headless browser if needed)
