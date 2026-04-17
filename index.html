@@ -257,38 +257,36 @@ main { padding: 10px 14px 40px; }
   display: none;
   grid-column: 1 / -1;
   margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid var(--line);
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.55;
   color: var(--fg);
 }
 .card.expanded .details { display: block; }
-.card .details p { margin: 0 0 8px; }
-.card .details p:last-child { margin-bottom: 0; }
+.card .details p { margin: 0; }
 .card .details-cta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 8px;
-  padding: 8px 12px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--fg);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  gap: 4px;
+  margin-top: 6px;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
   cursor: pointer;
+  font-family: inherit;
   align-self: start;
 }
+.card .details-cta:hover { color: var(--fg); }
 .card .details-cta .caret {
   font-size: 9px;
   display: inline-block;
   transition: transform .15s ease;
   transform-origin: center;
-  color: var(--muted);
 }
 .card.expanded .details-cta .caret { transform: rotate(180deg); }
+.card.expanded .details-cta { color: var(--fg); }
 
 .now-line {
   position: absolute;
@@ -530,7 +528,7 @@ main { padding: 10px 14px 40px; }
     const conflictBadge = isConflict ? `<span class="conflict-badge">clash</span>` : "";
     const isExpanded = expanded.has(t.id);
     const cta = hasDetails(t)
-      ? `<button class="details-cta" type="button">${isExpanded ? "Hide details" : "Show details"}<span class="caret">▼</span></button>`
+      ? `<button class="details-cta" type="button">${isExpanded ? "Less" : "More"} <span class="caret">▼</span></button>`
       : "";
     return `
       <article class="card${isPicked ? " picked" : ""}${isConflict ? " conflict" : ""}${isBreak ? " break" : ""}${isExpanded ? " expanded" : ""}"
